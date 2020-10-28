@@ -23,4 +23,4 @@ with open("config.yaml", 'r') as stream:
 
 cs = Commcell(config['cshostname'], config['username'], config['password'])
 
-from app import routes, models
+from app import routes, models, testcase
