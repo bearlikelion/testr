@@ -1,5 +1,6 @@
 import json
 import os
+import subprocess
 
 from flask import flash
 from sqlalchemy.sql.expression import cast
@@ -43,7 +44,9 @@ class TestCase:
         }
 
         testcase['email'] = {
-            "receiver": email
+            "receiver": email,
+            "subject": 'Testr [' + cs.commserv_hostname + ':'
+                        + str(cs.commserv_version) + ']: Test Run ' + str(testrun.id)
         }
 
         testcase['testCasesInfo'] = {
@@ -57,7 +60,8 @@ class TestCase:
             _testCase = self.get_testcase(tcnum)
             testcase['testCasesInfo']["testCases"][_testCase.number] = json.loads(_testCase.inputs)
 
-        jsonpath = "." + os.sep + 'tmp' + os.sep + 'testrun-' + str(testrun.id) + '.json'
+        path = os.path.abspath(os.getcwd())
+        jsonpath = path + os.sep + 'tmp' + os.sep + 'testrun-' + str(testrun.id) + '.json'
         with open(jsonpath, 'a+') as outfile:
             json.dump(testcase, outfile, indent=2, separators=(',', ':'))
             log.info("Generated JSON File: %s" % jsonpath)
@@ -75,4 +79,5 @@ class TestCase:
 
         # TODO: Threaded pyton CVAutomation.py --inputJSON json
         install_dir = cs.commserv_client.install_directory
-        automation_dir = install_dir + os.sep + 'Automation'
+        automation = install_dir + os.sep + 'Automation' + os.sep + 'CVAutomation.py'
+        subprocess.call(['python', automation, '--inputJSON', jsonFile], shell=True)
