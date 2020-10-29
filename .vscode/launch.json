@@ -14,7 +14,9 @@
             "args": [
                 "run",
                 "--no-debugger",
-                "--no-reload"
+                "--no-reload",
+                "--cert=ssl/cert.pem",
+                "--key=ssl/key.pem"
             ],
             "jinja": true
         },

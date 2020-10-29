@@ -20,7 +20,10 @@ class TestRun(db.Model):
 class Commserv(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
-    hostnamename = db.Column(db.String(120))
+    hostname = db.Column(db.String(120))
     servicepack = db.Column(db.String(120))
     username = db.Column(db.String(120))
     password = db.Column(db.String(120))
+
+    def __repr__(self):
+        return '<Commserv %s>' % self.name
