@@ -26,7 +26,7 @@ cs = Commcell(config['cshostname'], config['username'], config['password'])
 from app import routes, models, testcase
 
 # Don't insert to DB if we are using flask db
-if sys.argv[1] not 'db':
+if not sys.argv[1]=='db':
     if models.Commserv.query.all():
         models.Commserv.query.delete()
 
