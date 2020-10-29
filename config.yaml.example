@@ -1,3 +1,7 @@
+# Commcell
 username: admin
-password: Password!
+password: Password
 cshostname: commserv.commvault.com
+
+# Application
+secret_key: Commvault-Create2020

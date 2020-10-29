@@ -16,7 +16,8 @@
                 "--no-debugger",
                 "--no-reload",
                 "--cert=ssl/cert.pem",
-                "--key=ssl/key.pem"
+                "--key=ssl/key.pem",
+                "--host=0.0.0.0"
             ],
             "jinja": true
         },
@@ -53,6 +54,17 @@
                 "run"
             ],
             "jinja": true
+        },
+        {
+            "name": "Flask DB Migrate",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            "env": {},
+            "args": [
+                "db",
+                "migrate"
+            ]
         }
     ]
 }
