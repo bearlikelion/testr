@@ -21,6 +21,8 @@ app.secret_key = config['secret_key']
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+from app import routes, models, testcase
+
 cs = Commcell(config['cshostname'], config['username'], config['password'])
 
 from app import routes, models, testcase
