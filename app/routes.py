@@ -3,37 +3,27 @@ from app import app, models, testcase
 
 @app.route('/')
 def index():
-    testcases = testcase.TestCase.get_test_cases()
+    testcases = testcase.TestCase.get_testcases()
     return render_template('main.html', testcases=testcases)
 
 
 @app.route('/testcases')
-def test_cases():
-    testcases = testcase.TestCase.get_test_cases()
+def testcases():
+    testcases = testcase.TestCase.get_testcases()
     return render_template('/testcases/list.html', testcases=testcases)
 
 
 @app.route('/testcases/new', methods=['GET', 'POST'])
-def new_test_case():
+def new_testcase():
     if request.method == 'GET':
         return render_template('/testcases/new.html')
     elif request.method == 'POST':
-        testcase.TestCase.add_test_case(request)
-        return redirect(url_for('test_cases'))
+        testcase.TestCase.add_testcase(request)
+        return redirect(url_for('index'))
 
-@app.route('/installUpdate/<int:updateno>', methods = ["POST"])
-def install_update(updateno):
-    if request.method == 'POST':
-        # get the update number and pass to the handler
-        install_update(updateno)
-    else:
-        return "Invalid request"
 
-@app.route('/removeUpdate/<int:updateno>', methods = ["POST"])
-def remove_update(updateno):
-    if request.method == 'POST':
-        # get the update number and pass to the handler
-        update_number = ""
-        remove_update(updateno)
-    else:
-        return "Invalid request"
+@app.route('/testcases/delete/<int:tcid>')
+def delete_testcase(tcid):
+    testcase.TestCase.delete_testcase(tcid)
+    return redirect(url_for('testcases'))
+
