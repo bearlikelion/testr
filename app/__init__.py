@@ -4,6 +4,7 @@ import yaml
 import logging
 
 from cvpysdk.commcell import Commcell
+from AutomationUtils.machine import Machine
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -46,6 +47,7 @@ migrate = Migrate(app, db)
 
 # Commserv Object
 cs = Commcell(config['cshostname'], config['username'], config['password'])
+machine = Machine('auto-dev', cs)
 log = app.logger
 
 from app import routes, models, testcase

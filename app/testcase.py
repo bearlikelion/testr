@@ -3,7 +3,7 @@ import os
 
 from flask import flash
 from sqlalchemy.sql.expression import cast
-from app import config, cs, db, models, log
+from app import config, cs, db, machine, models, log
 
 class TestCase:
     def add_testcase(self, request):
@@ -34,8 +34,7 @@ class TestCase:
         flash('Deleted Test case %s' % tcid, 'success')
 
 
-    def generate_tc_json(self, email, tcnumbers):
-        # TODO: Generate TestCase.json in /tmp
+    def generate_tc_json(self, testrun, email, tcnumbers):
         testcase = {}
         testcase['commcell'] = {
             "webconsoleHostname": config['cshostname'],
@@ -58,12 +57,20 @@ class TestCase:
             _testCase = self.get_testcase(tcnum)
             testcase['testCasesInfo']["testCases"][_testCase.number] = json.loads(_testCase.inputs)
 
-        jsonpath = "." + os.sep + 'tmp' + os.sep + 'test.json'
+        jsonpath = "." + os.sep + 'tmp' + os.sep + 'testrun-' + str(testrun.id) + '.json'
         with open(jsonpath, 'a+') as outfile:
             json.dump(testcase, outfile, indent=2, separators=(',', ':'))
+            log.info("Generated JSON File: %s" % jsonpath)
+            return jsonpath
 
 
     def run_testcase(self, request):
         email = request.form['email']
         testcases = request.form.getlist('testcase')
-        self.generate_tc_json(email, testcases)
+        testrun = models.TestRun()
+        db.session.add(testrun)
+        db.session.commit()
+        log.info("Created new test run %s" % testrun.id)
+        jsonFile = self.generate_tc_json(testrun, email, testcases)
+
+        # TODO: Threaded pyton CVAutomation.py --inputJSON json
