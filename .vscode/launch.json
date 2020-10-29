@@ -7,14 +7,14 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "testr/app.py",
+                "FLASK_APP": "testr.py",
                 "FLASK_ENV": "development",
                 "FLASK_DEBUG": "0"
             },
             "args": [
                 "run",
                 "--no-debugger",
-                "--no-reload",
+                "--reload",
                 "--cert=ssl/cert.pem",
                 "--key=ssl/key.pem",
                 "--host=0.0.0.0"
@@ -27,7 +27,7 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "testr/app.py",
+                "FLASK_APP": "testr.py",
                 "FLASK_ENV": "development",
                 "FLASK_DEBUG": "0",
                 "TEMPLATES_AUTO_RELOAD": "True"
@@ -45,7 +45,7 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "testr/app.py",
+                "FLASK_APP": "testr.py",
                 "FLASK_ENV": "development",
                 "FLASK_DEBUG": "1",
                 "TEMPLATES_AUTO_RELOAD": "True"
