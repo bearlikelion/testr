@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row">
     <h1>Start new Run</h1>
-    <form class="ui form">
+    <form class="ui form" method="POST" action="testcases/run">
         <div class="field">
             <label>Users to E-mail:</label>
             <input type="text" name="email" placeholder="marneman@commvault.com,ybaheti@commvault.com">
@@ -27,7 +27,7 @@
                 {% for testcase in testcases %}
                 <div class="row">
                     <div class="ui checkbox">
-                        <input type="checkbox" value="{{ testcase.number }}" tabindex="0" class="hidden">
+                        <input type="checkbox" name="testcase" value="{{ testcase.number }}" tabindex="0" class="hidden">
                         <label>{{ testcase.number }} - {{ testcase.name }}</label>
                     </div>
                 </div>

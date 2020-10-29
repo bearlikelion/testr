@@ -1,15 +1,17 @@
 from flask import render_template, request, redirect, url_for
 from app import app, models, testcase
 
+tc = testcase.TestCase()
+
 @app.route('/')
 def index():
-    testcases = testcase.TestCase.get_testcases()
+    testcases = tc.get_testcases()
     return render_template('main.html', testcases=testcases)
 
 
 @app.route('/testcases')
 def testcases():
-    testcases = testcase.TestCase.get_testcases()
+    testcases = tc.get_testcases()
     return render_template('/testcases/list.html', testcases=testcases)
 
 
@@ -18,12 +20,20 @@ def new_testcase():
     if request.method == 'GET':
         return render_template('/testcases/new.html')
     elif request.method == 'POST':
-        testcase.TestCase.add_testcase(request)
+        tc.add_testcase(request)
         return redirect(url_for('index'))
 
 
 @app.route('/testcases/delete/<int:tcid>')
 def delete_testcase(tcid):
-    testcase.TestCase.delete_testcase(tcid)
+    tc.delete_testcase(tcid)
     return redirect(url_for('testcases'))
 
+
+@app.route('/testcases/run', methods=['GET', 'POST'])
+def run_testcase():
+    if request.method == 'GET':
+        return redirect(url_for('index'))
+    elif request.method == 'POST':
+        tc.run_testcase(request)
+        return redirect(url_for('index'))
