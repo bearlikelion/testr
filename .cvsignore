@@ -1,0 +1,6 @@
+venv/
+*.pyc
+app/db/testr.db
+config.yaml
+logs/
+tmp/

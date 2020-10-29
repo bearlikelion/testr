@@ -74,3 +74,5 @@ class TestCase:
         jsonFile = self.generate_tc_json(testrun, email, testcases)
 
         # TODO: Threaded pyton CVAutomation.py --inputJSON json
+        install_dir = cs.commserv_client.install_directory
+        automation_dir = install_dir + os.sep + 'Automation'
