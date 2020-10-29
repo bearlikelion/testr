@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <h1>Add New Test Case</h1>
+    <form class="ui form" method="POST">
+        <div class="field">
+            <label>Test Case Number:</label>
+            <input type="text" name="number" placeholder="46854">
+        </div>
+
+        <div class="field">
+            <label>Test Case Name:</label>
+            <input type="text" name="name" placeholder="Indexing - Browse, find, versions and restore">
+        </div>
+
+        <div class="field">
+            <label>Test Case Inputs:</label>
+            <textarea name="inputs" id="" cols="30" rows="10" placeholder="{
+    'StoragePolicyName': None,
+    'TestDataPath': None,
+    'RestorePath': None
+}"></textarea>
+        </div>
+
+        <button type="submit" class="fluid ui button primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% with success = get_flashed_messages(category_filter=["success"]) %}
+    {% if success %}
+        {% for msg in success %}
+            <div class="ui positive message">
+                <i class="close icon"></i>
+                <div class="header">{{ msg }}</div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}

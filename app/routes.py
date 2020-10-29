@@ -1,9 +1,25 @@
-from flask import render_template, flash, redirect, url_for
-from app import app
+from flask import render_template, request, redirect, url_for
+from app import app, models, testcase
 
 @app.route('/')
 def index():
-    return render_template('main.html')
+    testcases = testcase.TestCase.get_test_cases()
+    return render_template('main.html', testcases=testcases)
+
+
+@app.route('/testcases')
+def test_cases():
+    testcases = testcase.TestCase.get_test_cases()
+    return render_template('/testcases/list.html', testcases=testcases)
+
+
+@app.route('/testcases/new', methods=['GET', 'POST'])
+def new_test_case():
+    if request.method == 'GET':
+        return render_template('/testcases/new.html')
+    elif request.method == 'POST':
+        testcase.TestCase.add_test_case(request)
+        return redirect(url_for('test_cases'))
 
 @app.route('/installUpdate/<int:updateno>', methods = ["POST"])
 def install_update(updateno):

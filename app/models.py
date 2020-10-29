@@ -15,7 +15,8 @@ class Commserv(db.Model):
 
 class TestCase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    number = db.Column(db.Integer)
+    number = db.Column(db.Integer, unique=True)
+    name = db.Column(db.String)
     inputs = db.Column(db.Text)
 
     def __repr__(self):

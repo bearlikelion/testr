@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<a href="/testcases/new" class="ui right floated button primary">Add new Test Case</a>
+
+<h1>Test Cases</h1>
+
+<table class="ui celled table">
+    <thead>
+        <tr>
+            <th>Number</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for testcase in testcases %}
+        <tr>
+            <td>{{ testcase.number }}</td>
+            <td>{{ testcase.name }}</td>
+            <td class="right aligned">
+                <a href="#"><i class="pencil alternamte icon"></i></a>
+                <a href="#"><i class="x icon red"></i></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

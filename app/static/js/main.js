@@ -1,3 +1,5 @@
-$('.ui.checkbox')
-  .checkbox()
-;
+$('.ui.checkbox').checkbox();
+
+$('.message .close').on('click', function() {
+  $(this).closest('.message').transition('fade');
+});

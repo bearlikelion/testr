@@ -1,76 +1,87 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="ui container">
-    <div class="row">
-        <h1>Start new Run</h1>
-        <form class="ui form">
-            <div class="field">
-                <label>Users to E-mail:</label>
-                <input type="text" name="email" placeholder="marneman@commvault.com,ybaheti@commvault.com">
-            </div>
+<div class="row">
+    <h1>Start new Run</h1>
+    <form class="ui form">
+        <div class="field">
+            <label>Users to E-mail:</label>
+            <input type="text" name="email" placeholder="marneman@commvault.com,ybaheti@commvault.com">
+        </div>
 
-            <div class="field">
-                <!-- TODO: Populate through users -->
-                <!-- TODO: Add e-mail to e-mail field (JS) -->
-                <a href="#" class="ui button">+Mark</a>
-                <a href="#" class="ui button">+Yashraj</a>
-            </div>
+        <div class="field">
+            <!-- TODO: Populate through users -->
+            <!-- TODO: Add e-mail to e-mail field (JS) -->
+            <a href="#" class="ui button">+Mark</a>
+            <a href="#" class="ui button">+Yashraj</a>
+        </div>
 
-            <div class="field">
-                <label>Updates to Install:</label>
-                <input type="text" name="updates" placeholder="42069-BIN">
-            </div>
+        <div class="field">
+            <label>Updates to Install:</label>
+            <input type="text" name="updates" placeholder="42069-BIN">
+        </div>
 
-            <div class="field">
-                <label>Test Cases to Run</label>
-                <div class="ui checkbox">
-                    <input type="checkbox" tabindex="0" class="hidden">
-                    <label>46854 - Indexing - Browse, find, versions and restore</label>
+        <div class="field">
+            <label>Test Cases to Run</label>
+            {% if testcases|length > 0 %}
+                {% for testcase in testcases %}
+                <div class="row">
+                    <div class="ui checkbox">
+                        <input type="checkbox" value="{{ testcase.number }}" tabindex="0" class="hidden">
+                        <label>{{ testcase.number }} - {{ testcase.name }}</label>
+                    </div>
                 </div>
-            </div>
+                {% endfor %}
+            {% else %}
+                <div class="row">
+                    <h3 class="ui red block header">
+                        No configured test cases!
+                        <small><a href="/testcases/new">Add a new test case</a></small>
+                    </h3>
+                </div>
+            {% endif %}
+        </div>
 
-            <button class="fluid ui button primary" type="submit">Submit</button>
-        </form>
-    </div>
+        <button class="fluid ui button primary" type="submit">Submit</button>
+    </form>
+</div>
 
-    <hr>
+<hr>
 
-    <div class="row">
-        <h1>Runs</h1>
+<div class="row">
+    <h1>Runs</h1>
 
-        <!-- TODO: Dynamic list of runs -->
-        <table class="ui celled table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Users</th>
-                    <th>Updates Installed</th>
-                    <th>Result</th>
-                </tr>
-            </thead>
+    <!-- TODO: Dynamic list of runs -->
+    <table class="ui celled table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Users</th>
+                <th>Updates Installed</th>
+                <th>Result</th>
+            </tr>
+        </thead>
 
-            <tbody>
-                <tr class="warning">
-                    <td>#3 Queued</td>
-                    <td>marneman</td>
-                    <td></td>
-                    <td>Queued</td>
-                </tr>
-                <tr class="negative">
-                    <td>#2 10/28/2020 5:34pm</td>
-                    <td>marneman</td>
-                    <td>42069-BIN</td>
-                    <td>Failed</td>
-                </tr>
-                <tr class="positive">
-                    <td>#1 10/28/2020 5:30pm</td>
-                    <td>marneman</td>
-                    <td></td>
-                    <td><i class="icon checkmark"></i> Passed</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <tbody>
+            <tr class="warning">
+                <td>#3 Queued</td>
+                <td>marneman</td>
+                <td></td>
+                <td>Queued</td>
+            </tr>
+            <tr class="negative">
+                <td>#2 10/28/2020 5:34pm</td>
+                <td>marneman</td>
+                <td>42069-BIN</td>
+                <td>Failed</td>
+            </tr>
+            <tr class="positive">
+                <td>#1 10/28/2020 5:30pm</td>
+                <td>marneman</td>
+                <td></td>
+                <td><i class="icon checkmark"></i> Passed</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 {% endblock %}
