@@ -23,6 +23,12 @@ class TestCase:
         flash('Test Case %s added' % request.form['number'], 'success')
 
 
+    def get_runs(self):
+        return models.TestRun.query.filter(
+            models.TestRun.result.like('1') | models.TestRun.result.like('-1')
+        ).order_by(models.TestRun.id.desc()).all()
+
+
     def get_testcase(self, tcnumber):
         return models.TestCase.query.filter_by(number=tcnumber).one()
 
