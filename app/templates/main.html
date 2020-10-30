@@ -49,31 +49,37 @@
 <hr>
 
 {% if active %}
-<table class="ui green table">
-    <thead>
-        <tr><th>Active Test Run</th></tr>
-    </thead>
-    <tbody>
-    <tr class="positive">
-        <td><strong>#{{ active.id }}</strong> started at {{ active.timestamp }}</td>
-    </tr>
-    </tbody>
-</table>
+<div class="row">
+    <h1>Active Test Run</h1>
+    <table class="ui green table">
+        <thead>
+            <tr><th>Active Test Run</th></tr>
+        </thead>
+        <tbody>
+        <tr class="positive">
+            <td><strong>#{{ active.id }}</strong> started at {{ active.timestamp }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 {% endif %}
 
 {% if queued|length > 0 %}
-<table class="ui yellow table">
-    <thead>
-        <tr><th>Queued Test Runs</th></tr>
-    </thead>
-    <tbody>
-    {% for run in queued %}
-        <tr class="warning">
-            <td><strong>#{{ run.id }}</strong> started at {{ run.timestamp }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<div class="row">
+    <h1>Queued Test Runs</h1>
+    <table class="ui yellow table">
+        <thead>
+            <tr><th>Queued Test Runs</th></tr>
+        </thead>
+        <tbody>
+        {% for run in queued %}
+            <tr class="warning">
+                <td><strong>#{{ run.id }}</strong> started at {{ run.timestamp }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endif %}
 
 <div class="row">

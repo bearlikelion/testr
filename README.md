@@ -2,9 +2,10 @@
 
 Testr is a web based interface to configure and run Commvault automation tests and install updates.
 
+![Testr Main Form Screenshot](/Screenshots/testr.png)
+
 ## Technology
 * Python 3
-* PowerShell
 
 ## Development
 
