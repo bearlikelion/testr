@@ -9,11 +9,18 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-
 if not os.path.exists('logs/testr.log'):
     with open('logs/testr.log', 'w+') as logfile:
         print("Initalized new log file")
         logfile.close()
+
+if not os.path.exists('app/db/testr.db'):
+    print()
+    print('[ERROR]: Testr DB does not exist, please run commands:')
+    print('    flask db init')
+    print('    flask db migrate')
+    print('    flask db upgrade')
+    os._exit(0)
 
 # File Config
 with open("config.yaml", 'r') as stream:

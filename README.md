@@ -20,7 +20,7 @@ pip install -r requirements.txt
 cp config.yaml.example config.yaml
 ```
 
-Edit config.yaml in your preferred text editor
+> Edit config.yaml in your preferred text editor
 
 ## Database Migrations
 We use SQLAlchemy to perform migrations on the database, to get it up and running execute the following commands:
