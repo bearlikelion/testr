@@ -2,7 +2,7 @@ import json, os, threading, time, subprocess
 
 from queue import Queue
 from flask import flash
-from app import config, cs, db, machine, models, log
+from app import config, cs, db, models, log
 
 class TestCase:
     def __init__(self):
@@ -21,6 +21,12 @@ class TestCase:
         db.session.commit()
         log.info("Added Test Case %s" % request.form['number'])
         flash('Test Case %s added' % request.form['number'], 'success')
+
+
+    def get_runs(self):
+        return models.TestRun.query.filter(
+            models.TestRun.result.like('1') | models.TestRun.result.like('-1')
+        ).order_by(models.TestRun.id.desc()).all()
 
 
     def get_testcase(self, tcnumber):
@@ -71,8 +77,8 @@ class TestCase:
             testcase['testCasesInfo']["testCases"][_testCase.number] = json.loads(_testCase.inputs)
 
         path = os.path.abspath(os.getcwd())
-        jsonpath = path + os.sep + 'tmp' + os.sep + 'testrun-' + str(testrun.id) + '.json'
-        with open(jsonpath, 'a+') as outfile:
+        jsonpath = path + os.sep + 'logs' + os.sep + 'testruns' + os.sep + 'testrun-' + str(testrun.id) + '.json'
+        with open(jsonpath, 'w+') as outfile:
             json.dump(testcase, outfile, indent=2, separators=(',', ':'))
             log.info("Generated JSON File: %s" % jsonpath)
             return jsonpath
@@ -83,7 +89,7 @@ class TestCase:
         testrun = models.TestRun.query.filter_by(id=tcrun['id']).one()
         self.active = {
             'id': testrun.id,
-            'timestamp': str(testrun.timestamp).split('.')[0]
+            'timestamp': testrun.timestamp
         }
 
         install_dir = cs.commserv_client.install_directory
@@ -100,6 +106,7 @@ class TestCase:
 
         pid = last_line.split('  ')[0]
         pid_log = ""
+
         with open(automation_log_file) as f:
             for line in f:
                 if line.__contains__(pid):

@@ -4,10 +4,24 @@ import yaml
 import logging
 
 from cvpysdk.commcell import Commcell
-from AutomationUtils.machine import Machine
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+
+if not os.path.exists('logs/testr.log'):
+    with open('logs/testr.log', 'w+') as logfile:
+        print("Initalized new log file")
+        logfile.close()
+
+if not os.path.exists('app/db/testr.db'):
+    with open('app/db/testr.db', 'w+') as database:
+        print()
+        print('[ERROR]: Testr DB does not exist, creating empty file, please run following commands:')
+        print('    flask db init')
+        print('    flask db migrate')
+        print('    flask db upgrade')
+        database.close()
+        os._exit(0)
 
 # File Config
 with open("config.yaml", 'r') as stream:
@@ -47,10 +61,16 @@ migrate = Migrate(app, db)
 
 # Commserv Object
 cs = Commcell(config['cshostname'], config['username'], config['password'])
-machine = Machine('auto-dev', cs)
 log = app.logger
 
 from app import routes, models, testcase
+
+@app.template_filter('time')
+def format_datetime(value, format="%m-%d-%Y %H:%M:%S"):
+    """Format a date time"""
+    if value is None:
+        return ""
+    return value.strftime(format)
 
 # Don't insert to DB if we are using flask db
 if len(sys.argv) > 1:

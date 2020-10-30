@@ -1,7 +1,9 @@
+.cvs/
+.cvskeep
 venv/
 *.pyc
 app/db/
 config.yaml
-logs/
-tmp/
-.cvs/
+logs/testr.log
+logs/testruns/*.json
+logs/testruns/*.log
