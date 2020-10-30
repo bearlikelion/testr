@@ -53,19 +53,20 @@ log = app.logger
 from app import routes, models, testcase
 
 # Don't insert to DB if we are using flask db
-if not sys.argv[1]=='db':
-    if models.Commserv.query.all():
-        models.Commserv.query.delete()
+if len(sys.argv) > 1:
+    if not sys.argv[1]=='db':
+        if models.Commserv.query.all():
+            models.Commserv.query.delete()
 
-    commcell = models.Commserv(
-        name = cs.commserv_name,
-        hostname = cs.commserv_hostname,
-        servicepack = cs.commserv_version,
-        username = config['username'],
-        password = config['password']
-    )
+        commcell = models.Commserv(
+            name = cs.commserv_name,
+            hostname = cs.commserv_hostname,
+            servicepack = cs.commserv_version,
+            username = config['username'],
+            password = config['password']
+        )
 
-    db.session.add(commcell)
-    db.session.commit()
+        db.session.add(commcell)
+        db.session.commit()
 
-    app.logger.info("Added Commvault Info to DB")
+        app.logger.info("Added Commvault Info to DB")

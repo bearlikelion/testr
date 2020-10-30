@@ -18,7 +18,7 @@
         <tbody>
         {% for testcase in testcases %}
             <tr>
-                <td>{{ testcase.number }}</td>
+                <td><strong>#{{ testcase.id }}</strong> - {{ testcase.number }}</td>
                 <td>{{ testcase.name }}</td>
                 <td class="right aligned">
                     <a href="#"><i class="pencil alternamte icon"></i></a>

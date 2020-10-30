@@ -1,12 +1,15 @@
 from flask import render_template, request, redirect, url_for
-from app import app, models, testcase
+from app import app, log, models, testcase
 
 tc = testcase.TestCase()
 
 @app.route('/')
 def index():
     testcases = tc.get_testcases()
-    return render_template('main.html', testcases=testcases)
+    activerun = tc.active
+    queued = tc.get_queue()
+    log.info('Active Run: %s' % activerun)
+    return render_template('main.html', testcases=testcases, active=activerun, queued=queued)
 
 
 @app.route('/testcases')

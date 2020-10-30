@@ -18,7 +18,7 @@
 
         <div class="field">
             <label>Updates to Install:</label>
-            <input type="text" name="updates" placeholder="42069-BIN">
+            <input type="text" name="updates" placeholder="To Be Implemented" readonly>
         </div>
 
         <div class="field">
@@ -48,8 +48,36 @@
 
 <hr>
 
+{% if active %}
+<table class="ui green table">
+    <thead>
+        <tr><th>Active Test Run</th></tr>
+    </thead>
+    <tbody>
+    <tr class="positive">
+        <td><strong>#{{ active.id }}</strong> started at {{ active.timestamp }}</td>
+    </tr>
+    </tbody>
+</table>
+{% endif %}
+
+{% if queued|length > 0 %}
+<table class="ui yellow table">
+    <thead>
+        <tr><th>Queued Test Runs</th></tr>
+    </thead>
+    <tbody>
+    {% for run in queued %}
+        <tr class="warning">
+            <td><strong>#{{ run.id }}</strong> started at {{ run.timestamp }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
 <div class="row">
-    <h1>Runs</h1>
+    <h1>Previous Test Runs</h1>
 
     <!-- TODO: Dynamic list of runs -->
     <table class="ui celled table">

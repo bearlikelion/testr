@@ -8,3 +8,25 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
+
+{% with info = get_flashed_messages(category_filter=["info"]) %}
+    {% if info %}
+        {% for msg in info %}
+            <div class="ui warning message">
+                <i class="close icon"></i>
+                <div class="header">{{ msg }}</div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+{% with error = get_flashed_messages(category_filter=["error"]) %}
+    {% if error %}
+        {% for msg in error %}
+            <div class="ui negative message">
+                <i class="close icon"></i>
+                <div class="header">{{ msg }}</div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
