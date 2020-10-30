@@ -1,4 +1,5 @@
-from flask import render_template, request, redirect, url_for
+import json, os
+from flask import jsonify, render_template, request, redirect, url_for
 from app import app, models, testcase
 
 tc = testcase.TestCase()
@@ -44,3 +45,22 @@ def run_testcase():
     elif request.method == 'POST':
         tc.run_testcase(request)
         return redirect(url_for('index'))
+
+@app.route('/testrun/<int:runid>/json')
+def get_json(runid):
+    path = os.path.abspath(os.getcwd())
+    json_path = path + os.sep + 'logs' + os.sep + 'testruns' + os.sep + 'testrun-' + str(runid) + '.json'
+    with open(json_path) as json_file:
+        data = json.load(json_file)
+
+    return jsonify(data)
+
+@app.route('/testrun/<int:runid>/log')
+def get_log(runid):
+    path = os.path.abspath(os.getcwd())
+    log_path = path + os.sep + 'logs' + os.sep + 'testruns' + os.sep + 'testrun-' + str(runid) + '.log'
+    with open(log_path) as log_file:
+        data = log_file.read()
+        data = data.replace('\n', '<br>')
+
+    return data

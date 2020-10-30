@@ -8,6 +8,7 @@ class TestCase:
     def __init__(self):
         self.active = None
         self.queue = Queue(maxsize=0)
+        self.path = os.path.abspath(os.getcwd())
 
 
     def add_testcase(self, request):
@@ -76,8 +77,7 @@ class TestCase:
             _testCase = self.get_testcase(tcnum)
             testcase['testCasesInfo']["testCases"][_testCase.number] = json.loads(_testCase.inputs)
 
-        path = os.path.abspath(os.getcwd())
-        jsonpath = path + os.sep + 'logs' + os.sep + 'testruns' + os.sep + 'testrun-' + str(testrun.id) + '.json'
+        jsonpath = self.path + os.sep + 'logs' + os.sep + 'testruns' + os.sep + 'testrun-' + str(testrun.id) + '.json'
         with open(jsonpath, 'w+') as outfile:
             json.dump(testcase, outfile, indent=2, separators=(',', ':'))
             log.info("Generated JSON File: %s" % jsonpath)
@@ -112,7 +112,9 @@ class TestCase:
                 if line.__contains__(pid):
                     pid_log += line
 
-        # TODO: Write pid_log to file
+        logpath = self.path + os.sep + 'logs' + os.sep + 'testruns' + os.sep + 'testrun-' + str(testrun.id) + '.log'
+        with open(logpath, 'w+') as logfile:
+            logfile.write(pid_log)
 
         if "[FAILED]." in pid_log:
             testrun.result = -1

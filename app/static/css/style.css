@@ -1,3 +1,7 @@
 nav img {
     margin: 0 10px!important;
 }
+
+.ui.loading.segment {
+    height: 100px;
+}

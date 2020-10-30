@@ -91,6 +91,8 @@
                 <th>id</th>
                 <th>Date</th>
                 <th>Result</th>
+                <th class="center aligned">Options</th>
+                <th class="center aligned">Log File</th>
             </tr>
         </thead>
 
@@ -115,6 +117,28 @@
                             {% elif testrun.result == -1 %}
                                 <td>FAILED</td>
                             {% endif %}
+                            <td class="center aligned">
+                                <button data-modal="modal-json-{{testrun.id}}" id="modal-control" class="ui button">View Options</button>
+                                <div id="modal-json-{{testrun.id}}" class="ui modal">
+                                    <i class="close icon"></i>
+                                    <div class="header">JSON File</div>
+                                    <div class="content">
+                                        <div class="ui loading segment">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="center aligned">
+                                <button data-modal="modal-log-{{testrun.id}}" id="modal-control" class="ui primary button">View Logs</button>
+                                <div id="modal-log-{{testrun.id}}" class="ui fullscreen modal">
+                                    <i class="close icon"></i>
+                                    <div class="header">Log File</div>
+                                    <div class="content">
+                                        <div class="ui loading segment">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                 {% endfor %}
             {% endif %}
