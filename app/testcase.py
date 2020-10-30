@@ -72,7 +72,7 @@ class TestCase:
 
         path = os.path.abspath(os.getcwd())
         jsonpath = path + os.sep + 'tmp' + os.sep + 'testrun-' + str(testrun.id) + '.json'
-        with open(jsonpath, 'a+') as outfile:
+        with open(jsonpath, 'w+') as outfile:
             json.dump(testcase, outfile, indent=2, separators=(',', ':'))
             log.info("Generated JSON File: %s" % jsonpath)
             return jsonpath

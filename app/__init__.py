@@ -9,6 +9,12 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+
+if not os.path.exists('logs/testr.log'):
+    with open('logs/testr.log', 'w+') as logfile:
+        print("Initalized new log file")
+        logfile.close()
+
 # File Config
 with open("config.yaml", 'r') as stream:
     try:

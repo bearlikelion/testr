@@ -1,7 +1,7 @@
 venv/
 *.pyc
-app/db/testr.db
+app/db/
 config.yaml
-logs/
+logs/testr.log
 tmp/
 .git/

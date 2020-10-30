@@ -2,6 +2,6 @@ venv/
 *.pyc
 app/db/
 config.yaml
-logs/
+logs/testr.log
 tmp/
 .cvs/
