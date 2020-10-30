@@ -1,5 +1,8 @@
+import pytz
+
 from datetime import datetime
 from app import db
+
 
 class Commserv(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -27,7 +30,7 @@ class TestRun(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     result = db.Column(db.Integer)
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.now(tz=pytz.timezone('US/Eastern')))
 
     def __repr__(self):
         return '<TestRun %s>' % self.id

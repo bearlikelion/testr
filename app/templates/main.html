@@ -56,7 +56,7 @@
         </thead>
         <tbody>
         <tr class="positive">
-            <td><strong>#{{ active.id }}</strong> started at {{ active.timestamp }}</td>
+            <td><strong>#{{ active.id }}</strong> started at {{ active.timestamp|time }}</td>
         </tr>
         </tbody>
     </table>
@@ -73,7 +73,7 @@
         <tbody>
         {% for run in queued %}
             <tr class="warning">
-                <td><strong>#{{ run.id }}</strong> started at {{ run.timestamp }}</td>
+                <td><strong>#{{ run.id }}</strong> started at {{ run.timestamp|time }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -85,7 +85,6 @@
 <div class="row">
     <h1>Previous Test Runs</h1>
 
-    <!-- TODO: Dynamic list of runs -->
     <table class="ui celled table">
         <thead>
             <tr>
@@ -96,21 +95,29 @@
         </thead>
 
         <tbody>
-            {% for testrun in testruns %}
-                {% if testrun.result == 1 %}
-                    <tr class="positive">
-                {% elif testrun.result == -1 %}
-                    <tr class="negative">
-                {% endif %}
-                        <td><strong>{{ testrun.id }}</strong></td>
-                        <td>{{ testrun.timestamp }}</td>
-                        {% if testrun.result == 1 %}
-                            <td>PASSED</td>
-                        {% elif testrun.result == -1 %}
-                            <td>FAILED</td>
-                        {% endif %}
-                    </tr>
-            {% endfor %}
+            {% if testruns|length == 0 %}
+                <tr class="warning">
+                    <td>No test runs yet, go start one!</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% else %}
+                {% for testrun in testruns %}
+                    {% if testrun.result == 1 %}
+                        <tr class="positive">
+                    {% elif testrun.result == -1 %}
+                        <tr class="negative">
+                    {% endif %}
+                            <td><strong>{{ testrun.id }}</strong></td>
+                            <td>{{ testrun.timestamp|time }}</td>
+                            {% if testrun.result == 1 %}
+                                <td>PASSED</td>
+                            {% elif testrun.result == -1 %}
+                                <td>FAILED</td>
+                            {% endif %}
+                        </tr>
+                {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 </div>

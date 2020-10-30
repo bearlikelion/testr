@@ -1,8 +1,10 @@
+.git/
+.gitkeep
 venv/
 *.pyc
 app/db/
 config.yaml
-logs/testr.log
 tmp/
-.git/
-.gitkeep
+logs/testr.log
+logs/testruns/*.json
+logs/testruns/*.log
